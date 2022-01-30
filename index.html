@@ -6,7 +6,6 @@
 <body>
 
 <h1 style="color:blue;"> This is the first heading</h1>
-	<a href="/master/calc.html"> A calculator</a>
 <input id="inputa" type="text">
 <input id="inputb" type="text">
 <button id="bit" type="button"> click me </button>
@@ -23,7 +22,7 @@ var h1=document.querySelector("#h1");
 buton.addEventListener("click",my);
 
 function my(){
-	var c=parseInt(a.value)+parseInt(b.value);
+	var c=parseFloat(a.value)+parseFloat(b.value);
 	console.log("a");
 	console.log(c);
 	h1.textContent=c;
