@@ -52,13 +52,13 @@ Download the iso image from the debians server. <br>
 	<li>
 		Create a folder with any name you want here we are creating one with name deb: <br>
 		(this is done in order keep everything together in one folder) <br>
-		<shell>$mkdir deb</shell> <br>
-		<shell>$cd deb</shell>
+		<code>$mkdir deb</code> <br>
+		<code>$cd deb</code>
 
 	</li>
 	<li>
 		Once you are in the folder make the virtual drive on which we will install debian.
-		<br> <shell>$qemu-img create -f qcow2 disk.qcow 32g</shell>
+		<br> <code>$qemu-img create -f qcow2 disk.qcow 32g</code>
 		<ul>
 			<li>
 				here qemu-img is the utility provided by qemu to make virtual drives in qcow format which again is provided by qemu.
@@ -91,7 +91,7 @@ Download the iso image from the debians server. <br>
 	step3:
 </h3>
 	run the command: <br>
-	<shell>$qemu-system-x86_64 -m 4096 -smp 2 -cdrom ../isos/debian-live-12.2.0-amd64-standard.iso -drive if=virtio,file=disk.qcow2,format=qcow2</shell>
+	<code>$qemu-system-x86_64 -m 4096 -smp 2 -cdrom ../isos/debian-live-12.2.0-amd64-standard.iso -drive if=virtio,file=disk.qcow2,format=qcow2</code>
 	<ul>
 		<li>
 
@@ -127,7 +127,7 @@ Download the iso image from the debians server. <br>
 	step4:
 </h3>
 	To run your newly made vm run the command <br>
-	<shell>$qemu-system-x86_64 -m 4096 -smp 2 -drive if=virtio,file=disk.qcow2,format=qcow2 -netdev user,id=mynet0,hostfwd=tcp:127.0.0.1:7922-:22 -device virtio-net,netdev=mynet0</shell> <br>
+	<code>$qemu-system-x86_64 -m 4096 -smp 2 -drive if=virtio,file=disk.qcow2,format=qcow2 -netdev user,id=mynet0,hostfwd=tcp:127.0.0.1:7922-:22 -device virtio-net,netdev=mynet0</code> <br>
 	this is the way you can run the newly created vm in gui format
 	<br>
 	<strong>
