@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Debian 12</title>
+</head>
+<body>
+<h1>
+	Simple guide for installing debian12  on qemu.
+</h1>
+<h2>
+	Requirements:
+</h2>
+<ul>
+	<li>
+
+		Your machine should have atleast 8gb of ram.
+	</li>
+	<li>
+		You should have an unix based operating system installed on your machines.
+
+	</li>
+	<li>
+
+		Stable internet connection.
+	</li>
+	<li>
+
+		qemu installed on your machine.
+	</li>
+</ul>
+
+<em style="font-size: 1.2em;">
+	(assuming you have qemu installed on your system if not refer to qemu-wiki here https://www.qemu.org/download/  )
+</em>
+
+<h3>
+	step1:
+</h3>	
+Download the iso image from the debians server. <br>
+<a href="https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/">ISO</a>	
+	<br>
+	<strong>Note:</strong> <em>Don't go for the images where there is a gui as they tend be bloated and 
+		are slow to run on vm. instead chose the standard debian img without any gui.</em>
+	
+<h3>
+
+	step2:
+</h3>
+<ol>
+	<li>
+		Create a folder with any name you want here we are creating one with name deb: <br>
+		(this is done in order keep everything together in one folder) <br>
+		$mkdir deb <br>
+		$cd deb
+
+	</li>
+	<li>
+		Once you are in the folder make the virtual drive on which we will install debian.
+		<br>$qemu-img create -f qcow2 disk.qcow 32g
+		<ul>
+			<li>
+				here qemu-img is the utility provided by qemu to make virtual drives in qcow format which again is provided by qemu.
+			</li>
+			<li>
+				'create' tell the utility to create a new disk img, 
+
+			</li>
+			<li>
+				'-f' flag specifies the format of the disk image
+
+			</li>
+			<li>
+
+				'qcow2' is the format name
+			</li>
+			<li>
+
+				'disk.qcow' is the name we are giving to the disk
+			</li>
+			<li>
+
+				'32G' will be  the  max size of the disk we are creating.
+			</li>
+		</ul>
+	</li>
+</ol>
+<h3>
+
+	step3:
+</h3>
+	run the command: <br>
+	$qemu-system-x86_64 -m 4096 -smp 2 -cdrom ../isos/debian-live-12.2.0-amd64-standard.iso -drive if=virtio,file=disk.qcow2,format=qcow2
+	<ul>
+		<li>
+
+			'-m' flag tell the qemu to start with how much memory 
+		</li>
+		<li>
+
+			'-smp' sets the number of cores to start with
+		</li>
+		<li>
+
+			'-cdrom' selects the booting media or installing media in our the case the iso we downloaded earlier
+		</li>
+		<li>
+			'-drive' selects the media or drive on where have to install the os.
+
+		</li>
+		<li>
+			(press enter assuming you know how to install debian (installing debian is not as easy as just clicking buttons(it might be but anyways)))
+
+		</li>
+		<li>
+			when you press return a new window will pop up with debians banner installation page.
+
+		</li>
+		<li>
+
+			after you have successfully gone through all the steps of installing,
+		</li>
+	</ul>
+
+<h3>
+	step4:
+</h3>
+	To run your newly made vm run the command <br>
+	$qemu-system-x86_64 -m 4096 -smp 2 -drive if=virtio,file=disk.qcow2,format=qcow2 -netdev user,id=mynet0,hostfwd=tcp:127.0.0.1:7922-:22 -device virtio-net,netdev=mynet0 <br>
+	this is the way you can run the newly created vm in gui format
+	<br>
+	<strong>
+		<em>
+		To run vm in headless from just add the flag '-display none -daemonize' to the command and you can
+		acess the vm on port 7922 (assuming the guest os has a ssh server already running).
+
+		</em>
+	</strong>
+</body>
+</html>
+
