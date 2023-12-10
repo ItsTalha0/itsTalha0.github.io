@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Debian 12</title>
+</head>
+<body>
+</br>
+<h2>Installing Open Bsd On Raspberry Pi.</h2></br>
+</br>
+<h3>Requirements</h3></br>
+<ul>
+<li>
+1.Rasbperry Pi 3b/4/5</br>
+</li>
+<li>
+2.sd card atleast 8gb in size.</br>
+</li>
+<li>
+3.Usb storage drive atleast 4gb in size.</br>
+</li>
+<li>
+4.Uart to usb serial cable ( can be found at any digital electronics store or amazon ).</br>
+</li>
+<li>
+5.Another machine with with any unix based os ( preferably debian or derivative of debian / openBsd / FreeBsd )</br>
+</li>
+<li>
+6.Enough will to survive through the installation process.</br>
+</li>
+</br>
+</ul>
+<h3><em>Some Notes:</em></h3></br>
+<ul>
+<li>
+	1. I am assuming that you have some basic understanding of the unix utilities and unix systems in general.</br>
+</li>
+<li>
+	2. This endeavor may take a lot of efforts and may require some trial and error to get things right so keep calm and keep installing.</br>
+</li>
+</ul>
+</br>
+<h3>PrePrep:</h3></br>
+<p>
+	Installation of openBsd on raspberry Pi is bit tricky than normal os installation on raspberry pi, for instance installing raspbian is </br>
+	as easy as downloading the os image from internet dd`ing or copying the os to the sd card and voila you have a running instance of </br>
+	raspbian on raspberry pi within 20 to 30 min. Whereas installing OpenBsd on pi takes significant more effort than that, the reason is that</br>
+	we need to first copy the os to the usb drive insert it into the pi and then install the os on the sd card.</br>
+</br>
+</p>
+<h3>Steps:</h3></br>
+<ul>
+<li>
+	1.Connect the usb uart cable to the pi in the given way. </br>
+		Tx of serial cable to Rx of the pi</br>
+		Rx of serial cable to Tx of the pi</br>
+		GND of serial cable to GND of pi</br>
+		(Dont connect any of the VCC cables like 5v or 3v )</br>
+		<img></br>
+</li>
+<li>
+	2.Download the install images from openBsd <link>, also download the all set files from the same directory i.e all files with .tgz</br>
+		extension.</br>
+</li>
+<li>
+	3.Write it to the usb drive using the command</br>
+		#dd if=/path/to/the/install.img of=/dev/sdxx </br>
+		 where sdxx is the sdcard on which you will install openbsd.</br>
+</li>
+<li>
+	4.Copy all file sets from the step 2 into the usb drive( formated with bsdufs or fat filesystem).</br>
+</li>
+<li>
+	5.Plug the usb in one of the port of the pi, insert the sdcard in pi. (dont power on yet).</br>
+</li>
+<li>
+	6.With the serial cable connected to both your machine and raspberry pi, run the command on your machine.</br>
+		#cu -l /dev/ttyUSB* -s 115200 </br>
+		( replace * with the number you see in your /dev folder, incase you have multiple ttyUSB's just unplug ours and check the /dev then </br>
+			replug ours and then again check wich is the new addition, the new addition is our ttyUSB).</br>
+		( if the command throws error like permission denied or line busy then run the following command </br>
+			#chmod 666 /dev/ttyUSB* </br>
+			here * is same as above.)</br>
+</li>
+<li>
+	7.Once done with the step 4, plug in the power to pi and wait for activity to show on the serial console of you screen.</br>
+		then uboot( pi's bootloader ) will boot and d if=/path/to/the/install.img of=/dev/sdxx</br>
+       where sdxx is the sdcard on which you will install openbsd.</br>
+</li>
+<li>
+	8.wait for the booting process to start, once you get the first question from the installer you are all set</br>
+		follow the instructions given by the installer and when asked by the installer about the location of the file sets, select "disk"</br>
+		option the select no if asked if the disk is mounted, then it will give available devices, select the usb drive from there and then </br>
+		proceed as directed by the installer.</br>
+</li>
+<li>
+	9.Once the installation is complete, remove the usb drive from the pi and reboot,login using the serial console again.</br>
+	</br>
+note: if you are done till step 7 voila you have installed openbsd on rpi, to configure netword follow through till end if you dont want the,</br>
+	network you can just drop of from here bye bye.</br>
+</li>
+<li>
+	10.Setting up network:</br>
+		again we will need the usb drive for this purpose as we need to transfer the driver to the pi.</br>
+</li>
+<li>
+	11.Download the </br>
+	http://firmware.openbsd.org/firmware/<current version>/bwfm-----</br>
+	and the SHA.sig from there</br>
+	then move to the pi and run the fw_update command from the terminal as root to install the firmware.</br>
+</br>
+</li>
+</ul>
+
+</body>
+</html>
+
