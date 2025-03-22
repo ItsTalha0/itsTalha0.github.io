@@ -27,6 +27,34 @@
 </ul>
 </br>
 <h3>Steps</h3></br>
+<br>
+Install bluetoothctl bluez and other things i dont remember
+Install alsa audio mixer and alsa stuff get audio working
+pacmd should be there, i dont remember exact packages needed to be installed.
+<br>
+What To Do
+<ul>
+<li>1. bluetoothctl scan bredr</li>
+<code>
+[soundcore R50i]# scan bredr
+[CHG] Device F0:AE:66:C3:02:EC RSSI is nil<br>
+[CHG] Device 49:35:56:C3:FA:6D RSSI is nil<br>
+[CHG] Device 46:3A:BF:CF:86:C1 RSSI is nil<br>
+[CHG] Device 4D:2B:6F:5D:8E:1F RSSI is nil<br>
+[CHG] Device 70:03:33:AE:4D:2F RSSI is nil<br>
+[CHG] Device 4A:DA:BA:15:B6:E7 RSSI is nil<br>
+[CHG] Transport /org/bluez/hci0/dev_F0_AE_66_66_C8_5F/sep1/fd0 Stat<br>
+[soundcore R50i]# 
+</code>
+
+<li>2.trust &lt;mac_of_dev></li>
+<li>3.pair &lt;mac_of_dev></li>
+<li>4.connect &lt;mac_of_dev></li>
+
+<li>5. $pacmd list-sinks</li>
+<li>6. remember the index of the device or sink it lists as bluetooth it should have something bluez bluetooth in name, you will get it.</li>
+<li>7. $pacmd set-default-sink &lt;number of sink you want to select></li>
+</ul>
 
 </body>
 </html>
